@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_util.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 17:28:49 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/04 18:08:58 by jnoh             ###   ########.fr       */
+/*   Created: 2022/11/04 18:08:53 by jnoh              #+#    #+#             */
+/*   Updated: 2022/11/04 18:09:09 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putstr(int fd, char *s)
+int	ft_free(t_arg *arg)
 {
-	if (!s)
-		return ;
-	while (*(s))
-		write(fd, s++, 1);
-}
-
-int	print_error(char *str)
-{
-	ft_putstr(2, str);
+	if (arg->philo)
+		free(arg->philo);
+	if (arg->fork)
+		free(arg->fork);
+	if (arg->fork_mutex)
+		free(arg->fork_mutex);
 	return (1);
-}
-
-void	ft_philo_print_status(t_arg *arg, t_philo *philo, char *str)
-{
-	printf("%lld\t\t%d %s\n", (long long)arg->time_to_die, philo->philo_id, str);
 }

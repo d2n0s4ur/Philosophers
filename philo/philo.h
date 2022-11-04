@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/04 15:21:10 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/04 18:09:32 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,35 @@
 typedef struct s_philo
 {
 	int				philo_id;
-	int				lfork;
-	int				rfork;
+	int				*lfork;
+	int				*rfork;
 	int				eat_count;
 	pthread_t		thread;
-	pthread_mutex_t	*lfork_mutex;
-	pthread_mutex_t	*rfork_mutex;
+	pthread_mutex_t *mutex[2];
 }	t_philo;
 
-typedef struct	s_arg
+typedef struct s_arg
 {
 	int				*fork;
-	pthread_mutex_t *fork_mutex;
+	pthread_mutex_t	*fork_mutex;
 	t_philo			*philo;
-	int				dead_cnt;
-	int				number_of_philosophers;
+	int				die_cnt;
+	int				philo_num;
 	int				time_to_die;
-	int				tiem_to_eat;
-	int				tiem_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_must_eat;
 }	t_arg;
 
+/*
+print utils
+*/
 int	print_error(char *str);
+/*
+utils
+*/
+int	ft_atoi(char *str);
+int	ft_free(t_arg *arg);
+
 
 #endif
