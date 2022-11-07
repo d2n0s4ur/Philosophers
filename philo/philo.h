@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 12:43:43 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 23:05:12 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 typedef struct s_philo
 {
 	int				philo_id;
-	pthread_mutex_t	*lfork;
-	pthread_mutex_t	*rfork;
+	pthread_mutex_t	lfork;
+	pthread_mutex_t	rfork;
 	int				eat_count;
 	int				died;
 	pthread_t		thread;
@@ -34,7 +34,7 @@ typedef struct s_philo
 typedef struct s_arg
 {
 	pthread_mutex_t	*fork;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	print;
 	t_philo			*philo;
 	int				die_cnt;
 	int				philo_num;

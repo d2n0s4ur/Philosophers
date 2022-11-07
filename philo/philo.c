@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:18:58 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 12:51:22 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 23:09:13 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static int	ft_arg_set(t_arg *arg)
 {
 	int	i;
 
+	if (pthread_mutex_init(&(arg->print), NULL))
+		return (1);
 	i = 0;
 	while (i < arg->philo_num)
 	{
@@ -67,14 +69,26 @@ static int	ft_arg_set(t_arg *arg)
 			return (1);
 		arg->philo[i].philo_id = i + 1;
 		arg->philo[i].info = arg;
-		arg->philo[i].lfork = &(arg->fork[i]);
+		arg->philo[i].lfork = arg->fork[i];
 		if (i + 1 == arg->philo_num)
-			arg->philo[i].rfork = &(arg->fork[0]);
+			arg->philo[i].rfork = arg->fork[0];
 		else
-			arg->philo[i].rfork = &(arg->fork[i + 1]);
+			arg->philo[i].rfork = arg->fork[i + 1];
 		i++;
 	}
 	return (0);
+}
+
+void	ft_print_infos(t_arg *arg)
+{
+	int i;
+
+	i = 0;
+	while (i < arg->philo_num)
+	{
+		printf("%d %d %d %p\n", arg->philo[i].philo_id, arg->philo[i].lfork, arg->philo[i].rfork, arg->philo[i].info);
+		i++;
+	}
 }
 
 int	main(int argc, char *argv[])
@@ -88,6 +102,7 @@ int	main(int argc, char *argv[])
 		return (print_error("Error: parsing argv\n"));
 	if (ft_arg_set(&arg))
 		return (print_error("Error: mutex init\n"));
+	ft_print_infos(&arg);
 	ft_philo_main(&arg);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:37:26 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 12:56:07 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 23:12:43 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	ft_philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->lfork);
+	pthread_mutex_lock(&(philo->lfork));
 	ft_philo_printf(philo, "has taken a fork");
-	pthread_mutex_lock(philo->rfork);
+	pthread_mutex_lock(&(philo->rfork));
 	ft_philo_printf(philo, "has taken a fork");
 	philo->eat_count++;
 	ft_philo_printf(philo, "is eating");
 	usleep(philo->info->time_to_eat * 10);
-	pthread_mutex_unlock(philo->lfork);
-	pthread_mutex_unlock(philo->rfork);
+	pthread_mutex_unlock(&(philo->rfork));
+	pthread_mutex_unlock(&(philo->lfork));
 }
 
 static void	*ft_routine(void *arg)
@@ -52,6 +52,12 @@ int	ft_philo_main(t_arg *arg)
 	{
 		if (pthread_create(&(arg->philo[i].thread), NULL, ft_routine, &(arg->philo[i])))
 			return (1);
+		i++;
+	}
+	i = 0;
+	while (i < arg->philo_num)
+	{
+		pthread_join(arg->philo[i].thread, NULL);
 		i++;
 	}
 	return (0);
