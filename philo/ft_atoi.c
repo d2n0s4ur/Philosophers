@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:41:36 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/04 15:43:01 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/05 21:30:17 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_atoi(char *str)
 	i = 0;
 	while (ft_is_space(str[i]))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+')
 		minus = minus - (str[i++] == '-') * 2;
 	result = 0;
 	while (str[i] >= '0' && str[i] <= '9')
