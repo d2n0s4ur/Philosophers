@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:28:49 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/06 11:39:39 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 12:34:17 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	print_error(char *str)
 	return (1);
 }
 
-void	ft_philo_print_status(t_arg *arg, t_philo *philo, char *str)
+void	ft_philo_printf(t_philo *philo, char *str)
 {
-	printf("%lld\t\t%d %s\n", (long long)arg->time_to_die, philo->philo_id, str);
+	long long	timestamp;
+
+	timestamp = ft_gettime() - philo->info->time_init;
+	printf("%lld\t\t%d %s\n", timestamp, philo->philo_id, str);
 }

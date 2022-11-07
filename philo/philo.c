@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:18:58 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 12:16:15 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 12:51:22 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ static int	ft_arg_set(t_arg *arg)
 		if (pthread_mutex_init(&(arg->fork[i]), NULL))
 			return (1);
 		arg->philo[i].philo_id = i + 1;
+		arg->philo[i].info = arg;
 		arg->philo[i].lfork = &(arg->fork[i]);
-		if (i < arg->philo_num - 1)
-			arg->philo[i].rfork = &(arg->fork[i + 1]);
-		else
+		if (i + 1 == arg->philo_num)
 			arg->philo[i].rfork = &(arg->fork[0]);
+		else
+			arg->philo[i].rfork = &(arg->fork[i + 1]);
 		i++;
 	}
 	return (0);
