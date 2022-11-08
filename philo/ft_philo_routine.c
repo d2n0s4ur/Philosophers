@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:37:26 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 23:12:43 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/07 23:31:08 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,29 @@ static void	ft_philo_eat(t_philo *philo)
 	ft_philo_printf(philo, "has taken a fork");
 	philo->eat_count++;
 	ft_philo_printf(philo, "is eating");
-	usleep(philo->info->time_to_eat * 10);
+	usleep(philo->info->time_to_eat * 1000);
 	pthread_mutex_unlock(&(philo->rfork));
 	pthread_mutex_unlock(&(philo->lfork));
+}
+
+static void	ft_philo_join(t_arg *arg)
+{
+	int	i;
+
+	i = 0;
+	while (i < arg->philo_num)
+	{
+		pthread_join(arg->philo[i].thread, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < arg->philo_num)
+	{
+		pthread_mutex_destroy(&(arg->fork[i]));
+		i++;
+	}
+	ft_free(arg);
+	pthread_mutex_destroy(&(arg->print));
 }
 
 static void	*ft_routine(void *arg)
@@ -36,7 +56,7 @@ static void	*ft_routine(void *arg)
 	{
 		ft_philo_eat(philo);
 		ft_philo_printf(philo, "is sleeping");
-		usleep(philo->info->time_to_sleep * 10);
+		usleep(philo->info->time_to_sleep * 1000);
 		ft_philo_printf(philo, "is thinking");
 	}
 	return (0);
@@ -54,11 +74,6 @@ int	ft_philo_main(t_arg *arg)
 			return (1);
 		i++;
 	}
-	i = 0;
-	while (i < arg->philo_num)
-	{
-		pthread_join(arg->philo[i].thread, NULL);
-		i++;
-	}
+	ft_philo_join(arg);
 	return (0);
 }
