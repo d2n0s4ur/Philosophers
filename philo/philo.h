@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/10 17:34:14 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/10 20:58:50 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ utils
 int			ft_atoi(char *str);
 int			ft_free(t_arg *arg);
 long long	ft_gettime();
+void		ft_sleep(long long ms);
 /*
 routine
 */

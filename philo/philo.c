@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:18:58 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 23:29:11 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/10 20:52:57 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	ft_arg_set(t_arg *arg)
 	if (pthread_mutex_init(&(arg->print), NULL))
 		return (1);
 	i = 0;
+	arg->time_init = ft_gettime();
 	while (i < arg->philo_num)
 	{
 		if (pthread_mutex_init(&(arg->fork[i]), NULL))
@@ -70,6 +71,7 @@ static int	ft_arg_set(t_arg *arg)
 		arg->philo[i].philo_id = i + 1;
 		arg->philo[i].info = arg;
 		arg->philo[i].lfork = arg->fork[i];
+		arg->philo[i].last_eat = arg->time_init;
 		if (i + 1 == arg->philo_num)
 			arg->philo[i].rfork = arg->fork[0];
 		else
