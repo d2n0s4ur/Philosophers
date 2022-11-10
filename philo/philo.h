@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 23:05:12 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/10 17:34:14 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	int				died;
 	pthread_t		thread;
 	struct s_arg	*info;
+	long long		last_eat;
 }	t_philo;
 
 typedef struct s_arg
@@ -43,6 +44,7 @@ typedef struct s_arg
 	int				time_to_sleep;
 	int				time_must_eat;
 	long long		time_init;
+	int				finish;
 }	t_arg;
 
 /*

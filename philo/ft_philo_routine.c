@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:37:26 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/07 23:31:08 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/10 17:40:11 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	ft_philo_eat(t_philo *philo)
 	pthread_mutex_lock(&(philo->rfork));
 	ft_philo_printf(philo, "has taken a fork");
 	philo->eat_count++;
+	philo->last_eat = ft_gettime();
 	ft_philo_printf(philo, "is eating");
 	usleep(philo->info->time_to_eat * 1000);
 	pthread_mutex_unlock(&(philo->rfork));
@@ -62,6 +63,27 @@ static void	*ft_routine(void *arg)
 	return (0);
 }
 
+void	ft_philo_check_finish(t_arg *arg)
+{
+	long long	time;
+	int			i;
+
+	while (!(arg->finish))
+	{
+		i = 0;
+		time = ft_gettime();
+		while (i < arg->philo_num)
+		{
+			if (time - arg->philo[i].last_eat >= arg->time_to_die)
+			{
+				ft_philo_printf(&(arg->philo[i]), "died");
+				arg->finish = 1;
+				return ;
+			}
+		}
+	}
+}
+
 int	ft_philo_main(t_arg *arg)
 {
 	int	i;
@@ -74,6 +96,7 @@ int	ft_philo_main(t_arg *arg)
 			return (1);
 		i++;
 	}
+	ft_philo_check_finish(arg);
 	ft_philo_join(arg);
 	return (0);
 }
