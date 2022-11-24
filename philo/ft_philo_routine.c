@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:37:26 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/10 20:58:34 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/24 17:38:56 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 static void	ft_philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->lfork));
+	pthread_mutex_lock(philo->lfork);
 	ft_philo_printf(philo, "has taken a fork");
-	pthread_mutex_lock(&(philo->rfork));
+	pthread_mutex_lock(philo->rfork);
 	ft_philo_printf(philo, "has taken a fork");
 	philo->eat_count++;
+	if (philo->eat_count == philo->info->num_must_eat)
+		philo->info->finish_eat_cnt++;
 	philo->last_eat = ft_gettime();
 	ft_philo_printf(philo, "is eating");
 	ft_sleep(philo->info->time_to_eat);
-	pthread_mutex_unlock(&(philo->rfork));
-	pthread_mutex_unlock(&(philo->lfork));
+	pthread_mutex_unlock(philo->rfork);
+	pthread_mutex_unlock(philo->lfork);
 }
 
 static void	ft_philo_join(t_arg *arg)
@@ -34,11 +36,16 @@ static void	ft_philo_join(t_arg *arg)
 	while (i < arg->philo_num)
 	{
 		pthread_join(arg->philo[i].thread, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < arg->philo_num)
+	{
 		pthread_mutex_destroy(&(arg->fork[i]));
 		i++;
 	}
-	ft_free(arg);
 	pthread_mutex_destroy(&(arg->print));
+	ft_free(arg);
 }
 
 static void	*ft_routine(void *arg)
@@ -75,13 +82,28 @@ void	ft_philo_check_finish(t_arg *arg)
 				arg->finish = 1;
 				return ;
 			}
+			i++;
 		}
 	}
 }
 
+void	*ft_philo_check_eatcnt(void *info)
+{
+	t_arg	*arg;
+
+	arg = (t_arg *)(info);
+	while (!(arg->finish))
+	{
+		if (arg->finish_eat_cnt >= arg->philo_num)
+			arg->finish = 1;
+	}
+	return (NULL);
+}
+
 int	ft_philo_main(t_arg *arg)
 {
-	int	i;
+	int			i;
+	pthread_t	thread;
 
 	i = 0;
 	while (i < arg->philo_num)
@@ -90,6 +112,8 @@ int	ft_philo_main(t_arg *arg)
 			return (1);
 		i++;
 	}
+	if (arg->num_must_eat != -1)
+		pthread_create(&thread, NULL, ft_philo_check_eatcnt, arg);
 	ft_philo_check_finish(arg);
 	ft_philo_join(arg);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:08:53 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/10 20:58:08 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/24 17:01:56 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	ft_sleep(long long ms)
 
 	time = ft_gettime();
 	while (ft_gettime() - time < ms)
-		usleep(1000);
+		usleep(100);
 }

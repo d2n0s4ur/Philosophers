@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:18:58 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/10 20:52:57 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/24 17:33:44 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	ft_arg_init(t_arg *arg, int argc, char *argv[])
 	arg->time_to_eat = ft_atoi(argv[3]);
 	arg->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		arg->time_must_eat = ft_atoi(argv[5]);
+		arg->num_must_eat = ft_atoi(argv[5]);
 	else
-		arg->time_must_eat = -1;
+		arg->num_must_eat = -1;
 	arg->philo = malloc(arg->philo_num * sizeof(t_philo));
 	arg->fork = malloc(arg->philo_num * sizeof(pthread_mutex_t));
 	if (!(arg->philo) || !(arg->fork))
@@ -70,12 +70,9 @@ static int	ft_arg_set(t_arg *arg)
 			return (1);
 		arg->philo[i].philo_id = i + 1;
 		arg->philo[i].info = arg;
-		arg->philo[i].lfork = arg->fork[i];
+		arg->philo[i].lfork = &arg->fork[i];
+		arg->philo[i].rfork = &arg->fork[(i + 1) % arg->philo_num];
 		arg->philo[i].last_eat = arg->time_init;
-		if (i + 1 == arg->philo_num)
-			arg->philo[i].rfork = arg->fork[0];
-		else
-			arg->philo[i].rfork = arg->fork[i + 1];
 		i++;
 	}
 	return (0);

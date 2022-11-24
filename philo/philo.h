@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/10 20:58:50 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/11/24 17:45:42 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 typedef struct s_philo
 {
 	int				philo_id;
-	pthread_mutex_t	lfork;
-	pthread_mutex_t	rfork;
+	pthread_mutex_t	*lfork;
+	pthread_mutex_t	*rfork;
 	int				eat_count;
 	int				died;
 	pthread_t		thread;
@@ -37,12 +37,12 @@ typedef struct s_arg
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
 	t_philo			*philo;
-	int				die_cnt;
+	int				finish_eat_cnt;
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				time_must_eat;
+	int				num_must_eat;
 	long long		time_init;
 	int				finish;
 }	t_arg;
