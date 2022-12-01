@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:37:26 by jnoh              #+#    #+#             */
-/*   Updated: 2022/12/01 11:03:09 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 15:00:41 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_peek_fork(t_arg *arg, int fork_id)
 {
-	while (1)
+	while (!ft_philo_isfinish(arg))
 	{
 		pthread_mutex_lock(&(arg->fork_m[fork_id]));
 		if (arg->fork[fork_id] == 0)
@@ -29,7 +29,7 @@ static void	ft_peek_fork(t_arg *arg, int fork_id)
 
 static void	ft_drop_fork(t_arg *arg, int fork_id)
 {
-	while (1)
+	while (!ft_philo_isfinish(arg))
 	{
 		pthread_mutex_lock(&(arg->fork_m[fork_id]));
 		if (arg->fork[fork_id])
