@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:08:53 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/24 17:01:56 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 10:53:27 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_free(t_arg *arg)
 {
-	if (arg->philo)
-		free(arg->philo);
+	if (arg->ph)
+		free(arg->ph);
 	if (arg->fork)
 		free(arg->fork);
+	if (arg->fork_m)
+		free(arg->fork_m);
 	return (1);
 }
 
@@ -37,5 +39,5 @@ void	ft_sleep(long long ms)
 
 	time = ft_gettime();
 	while (ft_gettime() - time < ms)
-		usleep(100);
+		usleep(300);
 }

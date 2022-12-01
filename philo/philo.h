@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/24 17:45:42 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 10:49:04 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,39 @@
 
 typedef struct s_philo
 {
-	int				philo_id;
-	pthread_mutex_t	*lfork;
-	pthread_mutex_t	*rfork;
-	int				eat_count;
-	int				died;
-	pthread_t		thread;
+	int				pid;
+	int				lf;
+	int				rf;
+	int				cnt;
+	pthread_t		tid;
 	struct s_arg	*info;
 	long long		last_eat;
+	pthread_mutex_t	last_m;
 }	t_philo;
 
 typedef struct s_arg
 {
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	print;
-	t_philo			*philo;
+	pthread_mutex_t	print_m;
+	pthread_mutex_t	finish_m;
+	pthread_mutex_t	cnt_m;
+	pthread_mutex_t	*fork_m;
+	t_philo			*ph;
+	int				*fork;
 	int				finish_eat_cnt;
-	int				philo_num;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_must_eat;
+	int				ph_num;
+	int				t_to_die;
+	int				t_to_eat;
+	int				t_to_sleep;
+	int				n_must_eat;
 	long long		time_init;
 	int				finish;
 }	t_arg;
+
+/*
+philo init
+*/
+int	ft_arg_init(t_arg *arg, int argc, char *argv[]);
+int	ft_arg_set(t_arg *arg);
 
 /*
 print utils
@@ -63,5 +72,12 @@ void		ft_sleep(long long ms);
 routine
 */
 int	ft_philo_main(t_arg *arg);
+/*
+monitor
+*/
+void	ft_philo_check_finish(t_arg *arg);
+void	*ft_philo_check_eatcnt(void *info);
+void	ft_philo_join(t_arg *arg);
+int		ft_philo_isfinish(t_arg *arg);
 
 #endif

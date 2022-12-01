@@ -6,18 +6,19 @@
 #    By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 17:19:45 by jnoh              #+#    #+#              #
-#    Updated: 2022/11/07 23:13:07 by jnoh             ###   ########.fr        #
+#    Updated: 2022/12/01 10:58:17 by jnoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
-SRCS		= philo.c print_util.c ft_atoi.c utils.c ft_philo_routine.c
+CC			=	cc
+CFLAGS		=	-Wall -Werror -Wextra
+SRCS		=	philo.c print_util.c ft_atoi.c utils.c \
+				ft_philo_routine.c monitor.c main.c
 
-OBJS		= $(SRCS:.c=.o)
-NAME		= philo
-RM 			= rm -f
-HEADERS		= ./philo.h
+OBJS		=	$(SRCS:.c=.o)
+NAME		=	philo
+RM 			=	rm -f
+HEADERS		=	./philo.h
 
 all	: $(NAME)
 
