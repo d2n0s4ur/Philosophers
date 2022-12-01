@@ -6,13 +6,13 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:57:22 by jnoh              #+#    #+#             */
-/*   Updated: 2022/12/01 10:49:21 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 11:02:59 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		ft_philo_isfinish(t_arg *arg)
+int	ft_philo_isfinish(t_arg *arg)
 {
 	int	ret;
 
@@ -55,7 +55,6 @@ void	*ft_philo_check_eatcnt(void *info)
 	t_arg	*arg;
 
 	arg = (t_arg *)(info);
-	
 	while (!ft_philo_isfinish(arg))
 	{
 		pthread_mutex_lock(&(arg->cnt_m));

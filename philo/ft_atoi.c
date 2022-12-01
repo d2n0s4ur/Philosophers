@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:41:36 by jnoh              #+#    #+#             */
-/*   Updated: 2022/11/05 21:30:17 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 11:03:46 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	ft_is_space(char c)
 		return (1);
 	return (0);
 }
+
 int	ft_atoi(char *str)
 {
 	int					i;

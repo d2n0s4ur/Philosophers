@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:17:41 by jnoh              #+#    #+#             */
-/*   Updated: 2022/12/01 10:49:04 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 11:05:39 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,18 @@ typedef struct s_arg
 	int				finish;
 }	t_arg;
 
-/*
-philo init
-*/
-int	ft_arg_init(t_arg *arg, int argc, char *argv[]);
-int	ft_arg_set(t_arg *arg);
-
-/*
-print utils
-*/
-int		print_error(char *str);
-void	ft_philo_printf(t_philo *philo, char *str);
-/*
-utils
-*/
+int			ft_arg_init(t_arg *arg, int argc, char *argv[]);
+int			ft_arg_set(t_arg *arg);
+int			print_error(char *str);
+void		ft_philo_printf(t_philo *philo, char *str);
 int			ft_atoi(char *str);
 int			ft_free(t_arg *arg);
-long long	ft_gettime();
+long long	ft_gettime(void);
 void		ft_sleep(long long ms);
-/*
-routine
-*/
-int	ft_philo_main(t_arg *arg);
-/*
-monitor
-*/
-void	ft_philo_check_finish(t_arg *arg);
-void	*ft_philo_check_eatcnt(void *info);
-void	ft_philo_join(t_arg *arg);
-int		ft_philo_isfinish(t_arg *arg);
+int			ft_philo_main(t_arg *arg);
+void		ft_philo_check_finish(t_arg *arg);
+void		*ft_philo_check_eatcnt(void *info);
+void		ft_philo_join(t_arg *arg);
+int			ft_philo_isfinish(t_arg *arg);
 
 #endif

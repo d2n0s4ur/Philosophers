@@ -6,7 +6,7 @@
 /*   By: jnoh <jnoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:08:53 by jnoh              #+#    #+#             */
-/*   Updated: 2022/12/01 10:53:27 by jnoh             ###   ########.fr       */
+/*   Updated: 2022/12/01 11:03:23 by jnoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_free(t_arg *arg)
 	return (1);
 }
 
-long long	ft_gettime()
+long long	ft_gettime(void)
 {
 	long long		ret;
 	struct timeval	current_time;
